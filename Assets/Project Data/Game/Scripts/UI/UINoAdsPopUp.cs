@@ -13,7 +13,6 @@ namespace Watermelon
         [SerializeField] UIFadeAnimation backFade;
         [SerializeField] Button bigCloseButton;
         [SerializeField] Button smallCloseButton;
-        [SerializeField] IAPButton removeAdsButton;
 
         public bool IsOpened => gameObject.activeSelf;
 
@@ -21,12 +20,9 @@ namespace Watermelon
         {
             bigCloseButton.onClick.AddListener(ClosePanel);
             smallCloseButton.onClick.AddListener(ClosePanel);
-            removeAdsButton.Init(ProductKeyType.NoAds);
 
             backFade.Hide(immediately: true);
             panelScalable.Hide(immediately: true);
-
-            AdsManager.ForcedAdDisabled += ForcedAdDisabled;
         }
 
         private void ForcedAdDisabled()
@@ -44,8 +40,6 @@ namespace Watermelon
             {
                 panelScalable.Show(immediately: false, duration: 0.3f);
             });
-
-            AdsManager.ForcedAdDisabled += ForcedAdDisabled;
         }
 
         private void ClosePanel()
@@ -58,8 +52,6 @@ namespace Watermelon
             {
                 gameObject.SetActive(false);
             });
-
-            AdsManager.ForcedAdDisabled -= ForcedAdDisabled;
         }
     }
 }

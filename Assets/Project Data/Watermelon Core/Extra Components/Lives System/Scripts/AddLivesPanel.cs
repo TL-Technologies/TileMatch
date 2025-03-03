@@ -79,21 +79,13 @@ namespace Watermelon
 
         public void OnButtonClick()
         {
-            AdsManager.ShowRewardBasedVideo(success =>
-            {
-                if (success)
-                {
-                    LivesManager.AddLife();
+            LivesManager.AddLife();
 
-                    if (lifeRecievedAudio != null)
-                        AudioController.PlaySound(lifeRecievedAudio);
+            if (lifeRecievedAudio != null)
+                AudioController.PlaySound(lifeRecievedAudio);
 
-                    OnPanelClosedCallback?.Invoke(true);
-                    OnPanelClosedCallback = null;
-                }
-
-                Hide();
-            });
+            OnPanelClosedCallback?.Invoke(true);
+            OnPanelClosedCallback = null;
         }
 
         public void SetLivesCount(int count)

@@ -79,8 +79,6 @@ namespace Watermelon
                 // Display default page
                 UIController.ShowPage<UIMainMenu>();
 
-                AdsManager.EnableBanner();
-
 #if UNITY_EDITOR
                 CheckIfNeedToAutoRunLevel();
 #endif
@@ -91,13 +89,11 @@ namespace Watermelon
 
         public static void LoadLevel(int index, SimpleCallback onLevelLoaded = null)
         {
-            AdsManager.ShowInterstitial(null);
 
             gameController.mapBehavior.Hide();
 
             UIController.HidePage<UIMainMenu>(() =>
             {
-                AdsManager.EnableBanner();
 
                 UIController.ShowPage<UIGame>();
 
@@ -164,11 +160,11 @@ namespace Watermelon
 
             gameController.mapBehavior.Show();
 
-            AdsManager.ShowInterstitial(null);
+           
 
             UIController.ShowPage<UIMainMenu>();
 
-            AdsManager.DisableBanner();
+          
         }
 
         public static void Revive()

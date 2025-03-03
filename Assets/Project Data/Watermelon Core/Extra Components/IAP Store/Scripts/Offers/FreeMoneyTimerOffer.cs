@@ -8,8 +8,7 @@ using static Watermelon.Currency;
 
 namespace Watermelon.IAPStore
 {
-    public class FreeMoneyTimerOffer : MonoBehaviour, IIAPStoreOffer
-    {
+    public class FreeMoneyTimerOffer : MonoBehaviour{
         [SerializeField] int coinsAmount;
         [SerializeField] TMP_Text coinsAmountText;
 
@@ -42,8 +41,6 @@ namespace Watermelon.IAPStore
             save = SaveController.GetSaveObject<SimpleLongSave>("Free Money Timer");
 
             timerStartTime = DateTime.FromBinary(save.Value);
-
-            button.onClick.AddListener(OnAdButtonClicked);
             coinsAmountText.text = $"x{coinsAmount}";
         }
 
@@ -76,18 +73,6 @@ namespace Watermelon.IAPStore
                 timerText.rectTransform.sizeDelta = timerText.rectTransform.sizeDelta.SetX(prefferedWidth + 5);
                 button.image.rectTransform.sizeDelta = button.image.rectTransform.sizeDelta.SetX(prefferedWidth + 10);
             }
-        }
-
-        private void OnAdButtonClicked()
-        {
-            save.Value = DateTime.Now.ToBinary();
-            timerStartTime = DateTime.Now;
-
-            UIIAPStore iapStore = UIController.GetPage<UIIAPStore>();
-            iapStore.SpawnCurrencyCloud(cloudSpawnRectTransform, CurrencyType.Coins, floatingElementsAmount, () =>
-            {
-                CurrenciesController.Add(CurrencyType.Coins, coinsAmount);
-            });
         }
     }
 }

@@ -51,8 +51,6 @@ namespace Watermelon
 
             iapStoreButton.Init(STORE_AD_RIGHT_OFFSET_X);
             noAdsButton.Init(STORE_AD_RIGHT_OFFSET_X);
-
-            iapStoreButton.Button.onClick.AddListener(IAPStoreButton);
             noAdsButton.Button.onClick.AddListener(NoAdButton);
             coinsPanel.AddButton.onClick.AddListener(AddCoinsButton);
             playButton.onClick.AddListener(PlayButton);
@@ -78,7 +76,6 @@ namespace Watermelon
 
             showHideStoreAdButtonDelayTweenCase = Tween.DelayedCall(0.12f, delegate
             {
-                ShowAdButton();
                 iapStoreButton.Show();
             });
 
@@ -171,14 +168,7 @@ namespace Watermelon
 
         private void ShowAdButton(bool immediately = false)
         {
-            if (AdsManager.IsForcedAdEnabled())
-            {
-                noAdsButton.Show(immediately);
-            }
-            else
-            {
-                noAdsButton.Hide(immediately: true);
-            }
+            noAdsButton.Show(false);
         }
 
         private void HideAdButton(bool immediately = false)
@@ -236,37 +226,9 @@ namespace Watermelon
             }
         }
 
-        private void IAPStoreButton()
-        {
-            if (UIController.GetPage<UIIAPStore>().IsPageDisplayed)
-                return;
+        
 
-            UILevelNumberText.Hide(true);
-
-            UIController.HidePage<UIMainMenu>();
-            UIController.ShowPage<UIIAPStore>();
-
-            // reopening main menu only after store page was opened throug main menu
-            UIController.OnPageClosedEvent += OnIapStoreClosed;
-            MapBehavior.DisableScroll();
-
-            AudioController.PlaySound(AudioController.Sounds.buttonSound);
-        }
-
-        private void OnIapStoreClosed(UIPage page, System.Type pageType)
-        {
-            if (pageType.Equals(typeof(UIIAPStore)))
-            {
-                UIController.OnPageClosedEvent -= OnIapStoreClosed;
-
-                MapBehavior.EnableScroll();
-                UIController.ShowPage<UIMainMenu>();
-            }
-        }
-
-
-
-
+     
 
         private void NoAdButton()
         {
@@ -276,7 +238,6 @@ namespace Watermelon
 
         private void AddCoinsButton()
         {
-            IAPStoreButton();
             AudioController.PlaySound(AudioController.Sounds.buttonSound);
         }
 

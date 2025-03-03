@@ -5,8 +5,7 @@ using UnityEngine;
 
 namespace Watermelon.IAPStore
 {
-    public class StartedPackOffer : IAPStoreOffer
-    {
+    public class StartedPackOffer : MonoBehaviour{
         [SerializeField, Tooltip("In hours")] int infiniteLifeDuration;
 
         [Space]
@@ -27,9 +26,9 @@ namespace Watermelon.IAPStore
         [SerializeField] TMP_Text livesText;
         [SerializeField] TMP_Text coinsText;
 
-        protected override void Awake()
+        protected void Awake()
         {
-            base.Awake();
+           
 
 #if MODULE_POWERUPS
             powerUpsText.text = $"x{powerUpsAmount}";
@@ -39,7 +38,7 @@ namespace Watermelon.IAPStore
             livesText.text = $"{infiniteLifeDuration}hrs";
         }
 
-        protected override void ApplyOffer()
+        protected void ApplyOffer()
         {
             LivesManager.StartInfiniteLives(infiniteLifeDuration * 60 * 60);
 
@@ -54,19 +53,6 @@ namespace Watermelon.IAPStore
                 }
             }
 #endif
-
-            UIIAPStore iapStore = UIController.GetPage<UIIAPStore>();
-            iapStore.SpawnCurrencyCloud((RectTransform)transform, CurrencyType.Coins, 15, () =>
-            {
-                CurrenciesController.Add(CurrencyType.Coins, coinsAmount);
-            });
-
-            AdsManager.DisableForcedAd();
-        }
-
-        protected override void ReapplyOffer()
-        {
-            AdsManager.DisableForcedAd();
         }
     }
 }

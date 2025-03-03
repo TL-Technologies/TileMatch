@@ -84,8 +84,6 @@ namespace Watermelon
                 }
                 else
                 {
-                    UIController.ShowPage<UIIAPStore>();
-
                     return false;
                 }
             }

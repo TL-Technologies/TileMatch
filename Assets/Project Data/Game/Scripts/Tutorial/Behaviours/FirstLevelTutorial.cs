@@ -105,8 +105,6 @@ namespace Watermelon
             DockBehavior.MatchCombined += OnMatchCombined;
             DockBehavior.ElementAdded += OnElementAddedToDock;
             PUController.OnPowerUpUsed += OnPUUsed;
-
-            AdsManager.DisableBanner();
         }
 
         private void OnPUUsed(PUType powerUpType)
@@ -391,8 +389,6 @@ namespace Watermelon
             DockBehavior.MatchCombined -= OnMatchCombined;
             DockBehavior.ElementAdded -= OnElementAddedToDock;
             PUController.OnPowerUpUsed -= OnPUUsed;
-
-            AdsManager.EnableBanner();
 
             LevelController.CompleteCustomLevel();
 

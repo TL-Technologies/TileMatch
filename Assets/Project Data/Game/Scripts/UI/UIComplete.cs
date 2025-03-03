@@ -39,13 +39,17 @@ namespace Watermelon
 
         public override void Initialise()
         {
-            multiplyRewardButton.onClick.AddListener(MultiplyRewardButton);
             homeButton.onClick.AddListener(HomeButton);
             nextLevelButton.onClick.AddListener(NextLevelButton);
 
             coinsPanelUI.Initialise();
 
             NotchSaveArea.RegisterRectTransform(safeAreaTransform);
+        }
+
+        private void Update()
+        {
+            multiplyRewardButton.gameObject.SetActive(false);
         }
 
         #region Show/Hide
@@ -145,46 +149,6 @@ namespace Watermelon
         #endregion
 
         #region Buttons
-
-        public void MultiplyRewardButton()
-        {
-            AudioController.PlaySound(AudioController.Sounds.buttonSound);
-
-            if (noThanksAppearTween != null && noThanksAppearTween.IsActive)
-            {
-                noThanksAppearTween.Kill();
-            }
-
-            homeButton.interactable = false;
-            nextLevelButton.interactable = false;
-
-            AdsManager.ShowRewardBasedVideo((bool success) =>
-            {
-                if (success)
-                {
-                    int rewardMult = 3;
-
-                    multiplyRewardButtonFade.Hide(immediately: true);
-                    multiplyRewardButton.interactable = false;
-
-                    ShowRewardLabel(currentReward * rewardMult, false, 0.3f, delegate
-                    {
-                        FloatingCloud.SpawnCurrency(coinsHash, rewardLabel.RectTransform, coinsPanelScalable.RectTransform, 10, "", () =>
-                        {
-                            CurrenciesController.Add(CurrencyType.Coins, currentReward * rewardMult);
-
-                            homeButton.interactable = true;
-                            nextLevelButton.interactable = true;
-                        });
-                    });
-                }
-                else
-                {
-                    NextLevelButton();
-                }
-            });
-        }
-
         public void NextLevelButton()
         {
             AudioController.PlaySound(AudioController.Sounds.buttonSound);

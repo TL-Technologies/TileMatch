@@ -15,9 +15,6 @@ namespace Watermelon
 
         public override void OnClick()
         {
-            IAPManager.BuyProduct(AdsManager.NO_ADS_PRODUCT_KEY);
-
-            // Play button sound
             AudioController.PlaySound(AudioController.Sounds.buttonSound);
 
             settingsPanel.Hide(true);

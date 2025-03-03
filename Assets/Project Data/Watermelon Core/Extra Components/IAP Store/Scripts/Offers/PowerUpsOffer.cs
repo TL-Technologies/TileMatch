@@ -5,13 +5,12 @@ using UnityEngine;
 
 namespace Watermelon.IAPStore
 {
-    public class PowerUpsOffer : IAPStoreOffer
+    public class PowerUpsOffer
     {
         [SerializeField] List<PowerUpDeal> powerUps;
 
-        protected override void Awake()
+        protected  void Awake()
         {
-            base.Awake();
 
 #if MODULE_POWERUPS
             for (int i = 0; i < powerUps.Count; i++)
@@ -29,7 +28,7 @@ namespace Watermelon.IAPStore
 #endif
         }
 
-        protected override void ApplyOffer()
+        protected void ApplyOffer()
         {
 #if MODULE_POWERUPS
             for (int i = 0; i < powerUps.Count; i++)
@@ -41,7 +40,7 @@ namespace Watermelon.IAPStore
 #endif
         }
 
-        protected override void ReapplyOffer()
+        protected void ReapplyOffer()
         {
             
         }
